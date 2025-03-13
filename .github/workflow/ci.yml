@@ -1,7 +1,3 @@
-"""
-Fichier de configuration GitHub Actions pour l'entraînement, l'évaluation et la génération de documentation.
-"""
-
 name: CI/CD Pipeline
 
 on:
@@ -24,20 +20,20 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install -r ../../requirements.txt
 
       - name: Preprocess data
-        run: python script/preprocessing.py
+        run: python Scripts/preprocessing.py
 
       - name: Train models
-        run: python script/train.py
+        run: python Scripts/training.py
 
       - name: Evaluate models
-        run: python script/evaluation.py
+        run: python Scripts/evaluation.py
 
       - name: Generate documentation
         run: |
-          ./run_pydoc.sh
+          ./run_doc.sh
 
       - name: Archive and Upload Model and Doc
         run: zip -r output.zip model doc

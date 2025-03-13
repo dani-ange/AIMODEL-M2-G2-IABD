@@ -4,10 +4,10 @@
 
 echo "Génération de la documentation avec Pydoc..."
 
-pydoc -w script.preprocessing
-pydoc -w script.train
-pydoc -w script.evaluation
+python -m pydoc -w Scripts.preprocessing
+python -m pydoc -w Scripts.training
+python -m pydoc -w Scripts.evaluation
 
-mv *.html doc/
+mv *.html Docs/
 
-echo "Documentation générée avec succès et déplacée dans le dossier doc/."
+echo "Documentation générée avec succès et déplacée dans le dossier Docs/."

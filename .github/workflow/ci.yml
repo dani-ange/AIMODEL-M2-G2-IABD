@@ -18,6 +18,12 @@ jobs:
         with:
           python-version: '3.9'
 
+      - name: Install Git LFS
+        run: git lfs install
+
+      - name: Pull LFS files
+        run: git lfs pull
+
       - name: Install dependencies
         run: |
           pip install -r requirements.txt

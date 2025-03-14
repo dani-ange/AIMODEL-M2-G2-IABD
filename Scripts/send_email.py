@@ -56,7 +56,7 @@ class EmailSender:
             logging.error(f"Erreur lors de l'envoi de l'email : {e}")
 
 if __name__ == "__main__":
-    recipients = ["ngouedavidroger@icloud.com", "ngouedavidrogeryannick@gmail.com"]  # liste des emails
+    recipients = ["ngouedavidroger@icloud.com", "ngouedavidrogeryannick@gmail.com", "nchourupouomohamed@gmail.com", "djofangdanielle@gmail.com"]  # liste des emails
     sender = EmailSender(
         smtp_user="brainsystemprojects@gmail.com",  # votre email
         smtp_pass="rvfo jjrp bsbd yqqc",  # votre mot de passe

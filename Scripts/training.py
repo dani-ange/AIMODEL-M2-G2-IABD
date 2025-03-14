@@ -13,8 +13,8 @@ import joblib
 class Trainer:
     def __init__(self):
         """Charge les ensembles de données prétraités."""
-        self.x_train = np.load('../data/x_train.npy')
-        self.y_train = np.load('../data/y_train.npy')
+        self.x_train = np.load('data/x_train.npy')
+        self.y_train = np.load('data/y_train.npy')
         self.models = {}
 
     def train_svm(self):
@@ -39,7 +39,7 @@ class Trainer:
     def save_models(self):
         """Sauvegarde les modèles entraînés."""
         for model_name, model in self.models.items():
-            joblib.dump(model, f'../model/{model_name}_model.pkl')
+            joblib.dump(model, f'model/{model_name}_model.pkl')
         print("Modèles sauvegardés avec succès.")
 
 

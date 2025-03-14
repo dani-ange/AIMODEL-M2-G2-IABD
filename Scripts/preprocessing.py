@@ -1,9 +1,4 @@
-"""
-Module de prétraitement des données pour le modèle de classification du diabète.
-
-Ce script charge les données, gère les valeurs manquantes, effectue l'analyse statistique, la normalisation et la séparation en ensembles d'entraînement et de test.
-"""
-
+import os
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -26,6 +21,7 @@ class Preprocessing:
 
     def load_data(self):
         """Charge les données à partir d'un fichier CSV."""
+        print(f"Chemin absolu du fichier : {os.path.abspath(self.filepath)}")
         self.data = pd.read_csv(self.filepath)
         print("Données chargées avec succès.")
 
@@ -59,15 +55,18 @@ class Preprocessing:
 
     def save_preprocessed_data(self):
         """Enregistre les ensembles de données prétraités."""
-        np.save('../data/x_train.npy', self.x_train)
-        np.save('../data/x_test.npy', self.x_test)
-        np.save('../data/y_train.npy', self.y_train)
-        np.save('../data/y_test.npy', self.y_test)
-        print("Données prétraitées enregistrées.")
+        output_dir = os.path.join(os.getcwd(), 'data')
+        os.makedirs(output_dir, exist_ok=True)
+
+        np.save(os.path.join(output_dir, 'x_train.npy'), self.x_train)
+        np.save(os.path.join(output_dir, 'x_test.npy'), self.x_test)
+        np.save(os.path.join(output_dir, 'y_train.npy'), self.y_train)
+        np.save(os.path.join(output_dir, 'y_test.npy'), self.y_test)
+        print("Données prétraitées enregistrées dans le dossier 'data'.")
 
 
 if __name__ == "__main__":
-    preprocessor = Preprocessing('../data/diabetes.csv')
+    preprocessor = Preprocessing('data/diabetes.csv')
     preprocessor.load_data()
     preprocessor.handle_missing_values()
     preprocessor.detect_outliers()

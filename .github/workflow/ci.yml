@@ -46,6 +46,9 @@ jobs:
       - name: Evaluate models
         run: python Scripts/evaluation.py
 
+      - name: Rendre le script exécutable
+        run: chmod +x run_doc.sh
+
       - name: Generate documentation
         run: ./run_doc.sh
 

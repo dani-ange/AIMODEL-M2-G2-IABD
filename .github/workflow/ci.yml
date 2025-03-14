@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          lfs: true  # Récupérer les fichiers via Git LFS
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -23,6 +25,9 @@ jobs:
 
       - name: Pull LFS files
         run: git lfs pull
+
+      - name: Check data directory
+        run: ls -lh data/
 
       - name: Install dependencies
         run: |

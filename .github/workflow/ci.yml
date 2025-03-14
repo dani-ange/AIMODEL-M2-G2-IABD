@@ -21,17 +21,17 @@ jobs:
           python-version: '3.9'
 
       - name: Install Git LFS
-        run: git lfs install
+        run: |
+          git lfs install
+          git lfs fetch --all
+          git lfs checkout
+          git lfs pull
 
-      - name: Pull LFS files
-        run: git lfs pull
-
-      - name: Check data directory
-        run: ls -lh data/
+      - name: Vérifier les fichiers LFS
+        run: ls -lh data/ && cat data/diabetes.csv
 
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Preprocess data
         run: python Scripts/preprocessing.py
@@ -43,8 +43,7 @@ jobs:
         run: python Scripts/evaluation.py
 
       - name: Generate documentation
-        run: |
-          ./run_doc.sh
+        run: ./run_doc.sh
 
       - name: Archive and Upload Model and Doc
         run: zip -r output.zip model doc

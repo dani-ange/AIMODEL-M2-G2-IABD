@@ -12,15 +12,30 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          lfs: true
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.9'
 
-      - name: Install dependencies
+      - name: Install Git LFS
         run: |
-          pip install -r requirements.txt
+          git lfs install
+          git lfs fetch --all
+          git lfs checkout
+          git lfs pull
+
+      - name: Verify LFS Checkout
+        run: |
+          echo "Listing data directory:"
+          ls -lh data/
+          echo "First 10 lines of diabetes.csv:"
+          head -n 10 data/diabetes.csv
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Preprocess data
         run: python Scripts/preprocessing.py
@@ -32,8 +47,7 @@ jobs:
         run: python Scripts/evaluation.py
 
       - name: Generate documentation
-        run: |
-          ./run_doc.sh
+        run: ./run_doc.sh
 
       - name: Archive and Upload Model and Doc
         run: zip -r output.zip model doc

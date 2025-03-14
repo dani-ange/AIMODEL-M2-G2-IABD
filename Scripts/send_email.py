@@ -1,6 +1,6 @@
 """
 Script d'envoi automatique des modèles et de la documentation par email.
-Utilise des valeurs en dur (NON RECOMMANDÉ).
+Utilise des valeurs en dur (NON RECOMMANDÉ, mais modifié pour Gmail).
 """
 
 import smtplib
@@ -42,19 +42,24 @@ class EmailSender:
             return
 
         try:
-            with smtplib.SMTP('smtp.gmail.com', 587) as server:
-                server.starttls()
-                server.login(self.smtp_user, self.smtp_pass)
-                server.send_message(msg)
-                logging.info(f"Email envoyé avec succès à {', '.join(self.recipients)}!")
+            # Paramètres SMTP pour Gmail
+            smtp_server = 'smtp.gmail.com'
+            smtp_port = 587  # Port pour TLS
+
+            server = smtplib.SMTP(smtp_server, smtp_port)
+            server.starttls()  # Démarrer TLS
+            server.login(self.smtp_user, self.smtp_pass)
+            server.send_message(msg)
+            server.quit()  # Utiliser server.quit() pour fermer la connexion
+            logging.info(f"Email envoyé avec succès à {', '.join(self.recipients)}!")
         except Exception as e:
             logging.error(f"Erreur lors de l'envoi de l'email : {e}")
 
 if __name__ == "__main__":
-    recipients = ["ngouedavidroger@icloud.com", "ngouedavidrogeryannick@gmail.com"] #liste des emails
+    recipients = ["ngouedavidroger@icloud.com", "ngouedavidrogeryannick@gmail.com"]  # liste des emails
     sender = EmailSender(
-        smtp_user="brainsystemprojects@gmail.com", #votre email
-        smtp_pass="brainsystemprojects2024", #votre mot de passe
+        smtp_user="brainsystemprojects@gmail.com",  # votre email
+        smtp_pass="brainsystemprojects2024",  # votre mot de passe
         recipients=recipients,
         subject="Modèle et Documentation",
         body="Veuillez trouver ci-joint le modèle et la documentation générés."

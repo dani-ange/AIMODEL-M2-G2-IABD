@@ -1,6 +1,6 @@
 """
 Script d'envoi automatique des modèles et de la documentation par email.
-Utilise les secrets GitHub pour sécuriser les informations de connexion SMTP.
+Utilise des valeurs en dur (NON RECOMMANDÉ).
 """
 
 import smtplib
@@ -15,15 +15,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 class EmailSender:
     def __init__(self, smtp_user, smtp_pass, recipients, subject, body):
-        """
-        Initialise l'EmailSender avec les informations d'authentification et de contenu.
-
-        :param smtp_user: Adresse e-mail de l'expéditeur
-        :param smtp_pass: Mot de passe SMTP ou token d'authentification
-        :param recipients: Liste des adresses e-mail des destinataires
-        :param subject: Sujet de l'email
-        :param body: Corps du message
-        """
         self.smtp_user = smtp_user
         self.smtp_pass = smtp_pass
         self.recipients = recipients
@@ -31,10 +22,9 @@ class EmailSender:
         self.body = body
 
     def send_email(self, attachment_path):
-        """Envoie l'email avec une pièce jointe."""
         msg = MIMEMultipart()
         msg['From'] = self.smtp_user
-        msg['To'] = ', '.join(self.recipients)  # Utilise une chaîne séparée par des virgules
+        msg['To'] = ', '.join(self.recipients)
         msg['Subject'] = self.subject
 
         msg.attach(MIMEText(self.body, 'plain'))
@@ -61,11 +51,11 @@ class EmailSender:
             logging.error(f"Erreur lors de l'envoi de l'email : {e}")
 
 if __name__ == "__main__":
-    recipients = os.getenv('GROUP_EMAILS').split(',') # transforme la chaine de caractere en liste.
+    recipients = ["ngouedavidroger@icloud.com", "ngouedavidrogeryannick@gmail.com"] #liste des emails
     sender = EmailSender(
-        smtp_user=os.getenv('SMTP_USER', "ngouedavidrogeryannick@gmail.com"),
-        smtp_pass=os.getenv('SMTP_PASS', "Angeline-2007???"),
-        recipients="ngouedavidroger@icloud.com",
+        smtp_user="ngouedavidrogeryannick@gmail.com", #votre email
+        smtp_pass="Angeline-2007???", #votre mot de passe
+        recipients=recipients,
         subject="Modèle et Documentation",
         body="Veuillez trouver ci-joint le modèle et la documentation générés."
     )

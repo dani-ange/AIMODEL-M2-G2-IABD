@@ -46,6 +46,21 @@ jobs:
       - name: Evaluate models
         run: python Scripts/evaluation.py
 
+      - name: Read evaluation scores and make decision
+        id: evaluate
+        run: |
+          score=$(jq -r '.svm' model/scores.json)
+          echo "Score du modèle SVM: $score"
+          if (( $(echo "$score > 0.80" | bc -l) )); then
+            echo "deploy=true" >> $GITHUB_ENV
+          else
+            echo "deploy=false" >> $GITHUB_ENV
+          fi
+
+      - name: Deploy model (conditioned)
+        if: ${{ env.deploy }} == 'true'
+        run: echo "Déploiement du modèle sélectionné"
+
       - name: Rendre le script exécutable
         run: chmod +x run_doc.sh
 

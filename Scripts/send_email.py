@@ -53,8 +53,8 @@ class EmailSender:
 if __name__ == "__main__":
     recipients = ["ngouedavidroger@icloud.com", "ngouedavidrogeryannick@gmail.com"] #liste des emails
     sender = EmailSender(
-        smtp_user="ngouedavidrogeryannick@gmail.com", #votre email
-        smtp_pass="Angeline-2007???", #votre mot de passe
+        smtp_user="brainsystemprojects@gmail.com", #votre email
+        smtp_pass="brainsystemprojects2024", #votre mot de passe
         recipients=recipients,
         subject="Modèle et Documentation",
         body="Veuillez trouver ci-joint le modèle et la documentation générés."

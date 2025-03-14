@@ -70,5 +70,5 @@ jobs:
       - name: Archive and Upload Model and Doc
         run: zip -r output.zip model doc
 
-      - name: Send Email with Model and Documentations
+      - name: Send Email with Model and Documentation
         run: python Scripts/send_email.py

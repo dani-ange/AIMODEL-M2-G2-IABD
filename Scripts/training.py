@@ -8,6 +8,7 @@ from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import GridSearchCV
 import joblib
+import os
 
 
 class Trainer:
@@ -37,6 +38,7 @@ class Trainer:
         print(f"Meilleurs paramètres KNN: {grid_search.best_params_}")
 
     def save_models(self):
+        os.makedirs('model', exist_ok=True)
         """Sauvegarde les modèles entraînés."""
         for model_name, model in self.models.items():
             joblib.dump(model, f'model/{model_name}_model.pkl')

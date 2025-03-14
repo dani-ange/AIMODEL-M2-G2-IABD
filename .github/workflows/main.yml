@@ -56,7 +56,4 @@ jobs:
         run: zip -r output.zip model doc
 
       - name: Send Email with Model and Documentation
-        env:
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
         run: python Scripts/send_email.py

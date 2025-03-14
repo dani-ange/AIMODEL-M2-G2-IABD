@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          lfs: true  # Récupérer les fichiers via Git LFS
+          lfs: true
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -27,8 +27,12 @@ jobs:
           git lfs checkout
           git lfs pull
 
-      - name: Vérifier les fichiers LFS
-        run: ls -lh data/ && cat data/diabetes.csv
+      - name: Verify LFS Checkout
+        run: |
+          echo "Listing data directory:"
+          ls -lh data/
+          echo "First 10 lines of diabetes.csv:"
+          head -n 10 data/diabetes.csv
 
       - name: Install dependencies
         run: pip install -r requirements.txt

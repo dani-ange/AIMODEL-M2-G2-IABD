@@ -11,7 +11,7 @@ class Evaluator:
     def __init__(self):
         """Charge les ensembles de test et les modèles sauvegardés."""
         self.x_test = np.load('data/x_test.npy')
-        self.y_test = np.load('../data/y_test.npy')
+        self.y_test = np.load('data/y_test.npy')
         self.models = {
             'svm': joblib.load('model/svm_model.pkl'),
             'knn': joblib.load('model/knn_model.pkl')

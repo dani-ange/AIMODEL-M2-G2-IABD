@@ -44,13 +44,13 @@ class EmailSender:
         try:
             # Paramètres SMTP pour Gmail
             smtp_server = 'smtp.gmail.com'
-            smtp_port = 587  # Port pour TLS
+            smtp_port = 587  
 
             server = smtplib.SMTP(smtp_server, smtp_port)
-            server.starttls()  # Démarrer TLS
+            server.starttls()  
             server.login(self.smtp_user, self.smtp_pass)
             server.send_message(msg)
-            server.quit()  # Utiliser server.quit() pour fermer la connexion
+            server.quit()  
             logging.info(f"Email envoyé avec succès à {', '.join(self.recipients)}!")
         except Exception as e:
             logging.error(f"Erreur lors de l'envoi de l'email : {e}")
